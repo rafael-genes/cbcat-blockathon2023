@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "useUnknownInCatchVariables": false,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "target": "ES5",
+    "outDir": "./dist"
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

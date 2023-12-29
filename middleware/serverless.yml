@@ -1,0 +1,65 @@
+service: loyalty-web3-api
+
+plugins:
+  - serverless-offline
+  # - serverless-jetpack
+  - serverless-webpack
+
+custom:
+  serverless-offline:
+    host: 127.0.0.1
+    noPrependStageInUrl: true
+  webpack:
+    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
+    packager: 'npm' # Packager that will be used to package your external modules
+    includeModules: true
+    webpackIncludeModules:
+    packagePath: './package.json'
+    #excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  timeout: 30
+  region: ${env:REGION}
+  environment:
+    # General
+    ENV: ${env:ENV}
+    APP_NAME: ${env:APP_NAME}
+    
+    # Database
+    DB_HOST: ${env:DB_HOST}
+    DB_PORT: ${env:DB_PORT}
+    DB_USER: ${env:DB_USER}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_NAME: ${env:DB_NAME}
+    REGION: ${env:REGION}
+
+    # web3
+    BLOOCK_API_KEY: ${env:BLOOCK_API_KEY}
+    INFURA_API_KEY: ${env:INFURA_API_KEY}
+    INFURA_BASE_URL: ${env:INFURA_BASE_URL}
+    CHAIN_CONFIG: ${env:CHAIN_CONFIG}
+    MASTER_WALLET_PRIVATE_KEY: ${env:MASTER_WALLET_PRIVATE_KEY}
+    MASTER_WALLET_ADDRESS: ${env:MASTER_WALLET_ADDRESS}
+    RELAYER_API_KEY: ${env:RELAYER_API_KEY}
+    RELAYER_API_SECRET: ${env:RELAYER_API_SECRET}
+    
+package:
+  individually: true
+  #patterns:
+  #  - '!node_modules/**'
+  #  - '!venv/**'
+
+functions:
+  main:
+    handler: src/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+          cors: true
+      - http:
+          method: ANY
+          path: '{proxy+}'
+          cors: true

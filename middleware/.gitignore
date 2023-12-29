@@ -1,0 +1,7 @@
+.serverless
+.webpack
+dist
+node_modules
+*.env
+/uploads
+docker/volumes

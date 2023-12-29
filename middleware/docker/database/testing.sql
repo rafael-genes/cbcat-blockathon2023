@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS loyalty_dev;
+GRANT ALL PRIVILEGES ON loyalty_dev.* TO 'root' IDENTIFIED BY 'root';

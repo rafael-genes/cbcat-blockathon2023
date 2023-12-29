@@ -1,0 +1,17 @@
+version: "3.9"
+name: loyalty-web3
+services:
+  # Server
+  mariadb:
+    image: mariadb:10.10
+    ports:
+      - 3306:3306
+    environment:
+      # user: root password: example database: loyalty-web3
+      MARIADB_ROOT_PASSWORD: example
+    volumes:
+      - ./volumes/mariadb-sql:/var/lib/mysql
+  adminer:
+    build: ./adminer
+    ports:
+      - 3001:8080
