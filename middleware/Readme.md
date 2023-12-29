@@ -108,12 +108,6 @@ The project has the following features implemented and pending to be implemented
  - [ ] auto set all existing business minter on new contract
  - [ ] toggle active business
  - [ ] seperate create business from update (api-key only)
- - [ ] 
- - [ ] 
- - [ ] 
- - [ ] 
- - [ ] 
- - [ ] 
 
 
 
