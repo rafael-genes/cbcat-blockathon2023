@@ -1,6 +1,9 @@
 # CBCAT BlockAthon 2023
 
-Public repository with the deliverable code for the BlockAthon 2023. Powered by Boock, Explorins and Eseleos.
+Public repository with the deliverable code for the BlockAthon 2023. Powered by Bloock, Explorins and Eseleos.
+
+The final video to present the work done in the hackathon:
+> https://drive.google.com/drive/folders/1ZYtqCOqnqyve4WQMvxyjbN-YdopCYlDr?usp=sharing
 
 ## WEBAPP
 
