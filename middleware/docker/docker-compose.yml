@@ -1,5 +1,5 @@
 version: "3.9"
-name: loyalty-web3
+name: blockathon2023
 services:
   # Server
   mariadb:
@@ -7,7 +7,6 @@ services:
     ports:
       - 3306:3306
     environment:
-      # user: root password: example database: loyalty-web3
       MARIADB_ROOT_PASSWORD: example
     volumes:
       - ./volumes/mariadb-sql:/var/lib/mysql

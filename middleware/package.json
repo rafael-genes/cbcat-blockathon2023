@@ -1,7 +1,7 @@
 {
-  "name": "loyalty-web3",
+  "name": "blockathon2023",
   "version": "0.0.7",
-  "description": "loyalty-web3 serverless based backend with NestJS",
+  "description": "blockathon2023 serverless based backend with NestJS",
   "scripts": {
     "nest:watch": "rimraf dist && nest build --watch",
     "start:dev": "env-cmd -f ./env/.env.development nest start --watch",

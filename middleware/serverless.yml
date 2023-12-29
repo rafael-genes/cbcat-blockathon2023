@@ -1,4 +1,4 @@
-service: loyalty-web3-api
+service: blockathon2023-api
 
 plugins:
   - serverless-offline

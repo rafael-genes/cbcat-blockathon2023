@@ -1,9 +1,9 @@
 
-# Loyalty Web3
+# blockathon2023
 
 ### Introduction
 
-This project holds the API for LoyaltyWeb3, which serves the endpoints and integrates with some third party tools.
+This project holds the API for blockathon2023, which serves the endpoints and integrates with some third party tools.
 
 This project is built upon multiple layers which are needed to be executed simultaneously in order for fast development cycle (i.e.: making changes and execute code).
 
