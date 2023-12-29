@@ -1,0 +1,55 @@
+# syntax = docker/dockerfile:1
+
+# Adjust NODE_VERSION as desired
+ARG NODE_VERSION=18.18.2
+FROM node:${NODE_VERSION}-slim as base
+
+# Next.js app lives here
+WORKDIR /app
+
+# Install 
+
+# Set production environment
+ENV NODE_ENV="production"
+
+# Prisma engine needs this
+RUN apt-get update &&\
+    apt-get install libssl-dev -y
+
+# Throw-away build stage to reduce size of final image
+FROM base as build
+
+# Install packages needed to build node modules
+RUN apt-get update -qq && \
+    apt-get install -y build-essential pkg-config python-is-python3
+
+# Install node modules
+COPY --link package-lock.json package.json ./
+RUN npm ci --include=dev
+
+# Copy application code
+COPY --link . .
+
+# Generate prisma client
+RUN npx prisma generate
+
+# Build application
+RUN npm run build
+
+# Final stage for app image
+FROM base
+
+# Copy built application
+COPY --from=build /app /app
+
+# Start the server by default, this can be overwritten at runtime
+EXPOSE 3000
+
+# TODO: migrate to a entrypoint script
+# TODO: change seeding script
+CMD npx prisma migrate deploy &&\
+    npx prisma db seed &&\
+    npm run start
+
+# WARNING: database SQLITE shold be on ./data
+VOLUME [ "/app/data" ]

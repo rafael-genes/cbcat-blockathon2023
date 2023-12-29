@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  margin: 0 16px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start;
+  gap: 56px;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.email {
+  color: gray;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.emailPhone {
+  display: none;
+}
+
+@media (max-width: 468px) {
+  .emailPhone {
+    display: block;
+    color: gray;
+    font-weight: bold;
+    margin-top: 8px;
+  }
+
+  .email {
+    display: none;
+  }
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 24px 0;
+}
+
+.infoTitle {
+  font-size: 1rem;
+  color: #555;
+  font-weight: bold;
+  margin: 0;
+}
+
+.infoText {
+  color: #777;
+  font-weight: bold;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.rowComponents {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 2.5rem;
+}
+
+.inputField {
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  padding: 0.3rem 1rem;
+  margin-right: 1rem;
+  width: 70%;
+}

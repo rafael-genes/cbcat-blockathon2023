@@ -1,0 +1,35 @@
+.buttonField {
+  border-radius: 0.5rem;
+  border: 1px solid #95cfc9;
+  padding: 0.3rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #95cfc9;
+  color: white;
+  white-space: nowrap;
+  width: 30%;
+  letter-spacing: 1px;
+}
+
+.buttonField:hover {
+    background-color: #7ab6b0;
+    border: 1px solid #7ab6b0;
+}
+
+.buttonField:active {
+    background-color: #5e8c87;
+    border: 1px solid #5e8c87;
+}
+
+.buttonField:disabled {
+    background-color: #95cfc9;
+    border: 1px solid #95cfc9;
+    color: white;
+    cursor: not-allowed;
+}
+
+.error {
+  color: #E23434;
+  font-size: 14px;
+  margin: 20px 0;
+}

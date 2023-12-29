@@ -1,0 +1,43 @@
+include:
+  - project: "eseleos/gitlab-ci"
+    file:
+      - "base.yml"
+      - "build.yml"
+      - "deploy.yml"
+
+build:
+  extends: .build-docker
+  script:
+    - DOCKER_BUILDKIT=1 docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+
+# TODO: extend configuration
+deploy:
+  extends: .deploy
+  variables:
+    APP_URL: $API_URL
+  before_script:
+    - echo "$CI_REG_TOKEN" | docker login -u "$CI_REG_TOKEN_USERNAME" --password-stdin "$CI_REGISTRY"
+  script:
+    - docker stop turisme-dev || true
+    - docker rm -f turisme-dev || true
+
+    - docker run -d
+      --name turisme-dev
+      --restart unless-stopped
+      -v /data/turisme:/app/data
+      -p 3000:3000
+      -e "NEXTAUTH_SECRET"
+      -e "NEXTAUTH_URL"
+      -e "DATABASE_URL"
+      -e "API_KEY"
+      -e "API_URL=https://$API_URL"
+      -e "API_CONTRACT"
+      -e "ADMIN_EMAIL"
+      -e "ADMIN_PASSWORD"
+      -e "ADMIN_ADDRESS"
+      -e "RPC_PROVIDER"
+      -e "CHAIN_ID"
+      $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  after_script:
+    - docker logout $CI_REGISTRY

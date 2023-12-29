@@ -1,0 +1,9 @@
+.logoutButton {
+  background: none;
+  border: none;
+  color: #95cfc9;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
