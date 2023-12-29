@@ -5,7 +5,7 @@ import { Web3ServiceDTO } from "./dto/web3.service.dto";
 import { Web3HttpProviderService } from "../infrastructure/providers/http-provider.service";
 import { WalletService } from "./wallet.service";
 import { Buffer } from 'buffer';
-import { createLegacyTransaction, ecrecoverToAddress, extractLegacyTxRSV, extractPermitRSV, getTransactioDataObject, getTransactionDefaultGasParams, getTransactionNonce, sendSignedTransaction, waitForBlocks } from "../domain/functions/transaction.functions";
+import { createLegacyTransaction, ecrecoverToAddress, extractLegacyTxRSV, extractPermitRSV, getTransactioDataObject, getTransactionNonce, sendSignedTransaction, waitForBlocks } from "../domain/functions/transaction.functions";
 import { TokenTransactionType } from "../domain/transaction.types";
 import { LegacyTransaction, LegacyTxData } from "@ethereumjs/tx";
 import { getChainCommon } from "../domain/functions/connection.functions";
@@ -14,7 +14,7 @@ import { ethers } from "ethers";
 import { RelayerService } from "../infrastructure/relayer.service";
 import { ecrecover } from "@ethereumjs/util";
 import { HashAlg } from "@bloock/sdk";
-import { getGasEstimate, getRequiredGasBalanceHex } from "../domain/functions/gas.functions";
+import { getGasEstimate, getRequiredGasBalanceHex, getTransactionDefaultGasParams } from "../domain/functions/gas.functions";
 
 @Injectable()
 export class Web3Service extends Web3ServiceDTO {
@@ -102,12 +102,10 @@ export class Web3Service extends Web3ServiceDTO {
 
                 const transferEstimateMethod = (tokenContract as any).methods.mint(recipientAddress, amount)// .encodeABI()
 
-                const gasEstimate = await transferEstimateMethod.estimateGas({ from: senderAddress })
+                const gasEstimate = await getGasEstimate(senderAddress, transferEstimateMethod)
 
                 const senderBalance = await this.web3.eth.getBalance(senderAddress);
-                console.log('senderBalance', senderBalance)
 
-                const neededEth = gasEstimate * BigInt(100000000000)
                 const nonceGasTx = await getTransactionNonce(this.web3, masterAddress)
                 const gasTxData = getTransactioDataObject(
                     senderAddress, 
@@ -115,7 +113,7 @@ export class Web3Service extends Web3ServiceDTO {
                     '0x',
                     gasPriceHex, 
                     gasLimitHex,
-                    '0x' + (neededEth).toString(16)
+                    getRequiredGasBalanceHex(gasEstimate, BigInt(senderBalance))
                 )
                 const gasTx = await this.createSignedTxWithMasterWallet(gasTxData)
                 const gasReceipt = await this.sendSignedTransaction(gasTx)
