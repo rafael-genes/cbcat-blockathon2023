@@ -19,6 +19,6 @@ API based on JSON-RPC to manage the token operation with Bloock service products
 
 ## Token
 
-Standard coin (ERC20) for fungible tokens with custom minters.
+Standard coin (ERC20) for fungible tokens with custom minters...
 
 > https://mumbai.polygonscan.com/token/0x1EC2096Fe6694E4d352C0eCaAA6F97453e61898E
